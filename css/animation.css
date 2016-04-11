@@ -1,0 +1,39 @@
+@keyframes linkst{
+    0%{
+        stroke-dashoffset: 0px;
+    }
+
+    100%{
+        stroke-dashoffset: -200px;
+    }
+}
+
+@-webkit-keyframes linkst{
+    0%{
+        stroke-dashoffset: 0px;
+    }
+
+    100%{
+        stroke-dashoffset: -200px;
+    }
+}
+
+@keyframes linkts{
+    0%{
+        stroke-dashoffset: 0px;
+    }
+
+    100%{
+        stroke-dashoffset: 200px;
+    }
+}
+
+@-webkit-keyframes linkts{
+    0%{
+        stroke-dashoffset: 0px;
+    }
+
+    100%{
+        stroke-dashoffset: 200px;
+    }
+}

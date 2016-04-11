@@ -1,0 +1,272 @@
+.toolbar{
+    position: absolute;
+/*    background-color: #32363c;*/
+    background-color: #fff;
+    padding: 7px;
+    z-index: 2;
+    border-radius: 3px;
+/*    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);*/
+}
+
+.toolbar.top{
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    height: 25px;
+    border-radius: 0px;
+    background-color: #3f51b5;
+}
+
+.toolbar.top .tablebar{
+    display: flex;
+    box-sizing: border-box;
+    flex-direction: row;
+    flex-wrap:wrap;
+    align-items:stretch;
+    width: 100%;
+    padding: 5px 0px;
+}
+
+.toolbar.top .table-box{
+    margin-right: 15px;
+}
+
+.toolbar.top .table-box.table-box-left{
+    flex: 2;
+}
+.toolbar.top .table-box.table-box-mid{
+    flex: 1;
+}
+.toolbar.top .table-box.table-box-right{
+    flex: 1;
+    margin-right: 0px;
+}
+
+.toolbar.left{
+    top: 45px;
+    left: 5px;
+    bottom: 50px;
+    width: 65px;
+}
+.toolbar.right{
+    top: 45px;
+    right: 5px;
+    bottom: 50px;
+    width: 220px;
+}
+
+.toolbar.bottom{
+    bottom:5px;
+    left: 5px;
+    right: 5px;
+    height: 28px;
+    background-color: #000000;
+    text-align: center;
+    line-height: 28px;
+}
+
+.copyright{
+    color: #bdbdbd;
+    font-size: 12px;
+}
+
+.toolbar-ele{
+    display: inline-block;
+    position: relative;
+}
+
+.toolbar-search .fa{
+    color: #eee;
+    position: absolute;
+    right: 10px;
+    top: 4px;
+}
+
+input{
+    box-sizing: border-box;
+    height: 24px;
+    background-color: transparent;
+    border: none;
+    color: #eee;
+    font-size: 12px;
+    padding: 0 3px;
+    transition:all 0.5s linear;
+    width: 200px;
+    border-bottom: solid 1px #fff;
+    outline: none;
+}
+
+input:focus{
+    outline: none;
+    color: #fff;
+}
+
+button{
+    box-sizing: border-box;
+    height: 24px;
+    font-size: 12px;
+    padding: 0 15px;
+    transition:all 0.5s linear;
+    border: none;
+    color: #fff;
+    outline: none;
+    cursor: pointer;
+    
+}
+button.link{
+    background-color:transparent;
+}
+
+button.singlebtn{
+    position: absolute;
+    background-color: #fff;
+    z-index: 3;
+    height: 34px;
+    border-radius: 4px;
+    color:rgba(0,0,0,0.87);
+}
+
+button.close{
+    position: absolute;
+    background-color: #fff;
+    z-index: 3;
+    height: 25px;
+    padding: 0;
+    width: 25px;
+    border-radius: 4px;
+    color:rgba(0,0,0,0.87);
+    right: 0px;
+    top: 0px;
+}
+
+#showtab_1{
+    top: 50px;
+    left: 10px;
+}
+
+#showtab_2{
+    bottom: 50px;
+    left: 10px;
+}
+
+#showtab_3{
+    top: 50px;
+    right: 10px;
+}
+
+#showtab_4{
+    bottom: 50px;
+    right: 10px;
+}
+
+button.float{
+    border-radius: 5px;
+/*    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);*/
+}
+button.nor{
+    background-color: #fff;
+}
+button.blur{
+    background-color: #2a36b1;
+}
+
+.ain-bg{
+    position: absolute;
+    background-color: rgba(0,0,0,0.5);
+    border-radius: 4px;
+    display: none;
+    z-index: 3;
+/*    transition:top 1s linear,left 1s linear,width 1s linear,height 1s linear;*/
+}
+
+.table-box{
+    z-index: 4;
+    position: absolute;
+/*    box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);*/
+    background-color: rgba(255,255,255,0.9);
+    border-radius: 3px;
+    
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.table-box-1{
+    width: 300px;
+    top: 50px;
+    left: 10px;
+    display: none;
+}
+.table-box-2{
+    width: 750px;
+    bottom: 50px;
+    left: 10px;
+    display: none;
+}
+.table-box-3{
+    width: 450px;
+    top: 50px;
+    right: 10px;
+    display: none;
+}
+.table-box-4{
+    width: 600px;
+    bottom: 50px;
+    right: 10px;
+    display: none;
+}
+
+.table{
+    display: block;
+}
+
+.theader{
+    font-size: 12px;
+    position: relative;
+}
+.tbody{
+    font-size: 12px;
+    overflow-y: auto;
+}
+
+.tr{
+    display: flex;
+    box-sizing: border-box;
+    
+/*    transition:all 0.5s linear;*/
+}
+.tr:last-child .td{
+    border-bottom: none;
+}
+.tr:hover{
+    
+}
+.trh{
+    display: flex;
+    box-sizing: border-box;
+    font-weight: 500;
+    border-bottom: 1px #999 solid;
+}
+
+.th{
+    padding: 6px 5px;
+    color: rgba(0,0,0,0.54);
+    font-size: 12px;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0;
+}
+.td{
+    margin: 0;
+    padding: 4px 5px;
+    box-sizing: border-box;
+    border-bottom: 1px #999 solid;
+    color: rgba(0,0,0,0.87);
+    font-size: 13px;
+    min-height: 13px;
+}
+.text-left{text-align: left;}
+.text-right{text-align: right;}
+.t-1{flex:1}
+.t-2{flex:2}
+.t-3{flex:3}
+

@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/toolbar.css">
+    <link rel="stylesheet" href="css/chart.css">
+    <link rel="stylesheet" href="css/animation.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/font-roboto.css">
+</head>
+<body>
+<div class="ain-bg"></div>
+<div class="toolbar top z-1dp">
+    <div class="btnbar-top">
+        <div class="toolbar-ele toolbar-search">
+            <i class="fa fa-search"></i><input type="text" placeholder="搜索节点">
+        </div>
+        <div class="toolbar-ele toolbar-reset">
+            <button id="reset" class="link">
+            <i class="fa fa-refresh"></i>
+            刷 新
+            </button>
+            
+<!--
+            <button id="test" class="link">
+            <i class="fa fa-refresh"></i>
+            测 试
+            </button>
+-->
+<!--
+            <button id="showtab_1" class="link"  data-show="0">
+            <i class="fa fa-bar-chart"></i>
+            数据表格1
+            </button>
+            <button id="showtab_2" class="link"  data-show="0">
+            <i class="fa fa-bar-chart"></i>
+            数据表格1
+            </button>
+            <button id="showtab_3" class="link"  data-show="0">
+            <i class="fa fa-bar-chart"></i>
+            数据表格1
+            </button>
+            <button id="showtab_4" class="link"  data-show="0">
+            <i class="fa fa-bar-chart"></i>
+            数据表格1
+            </button>
+-->
+            
+            
+        </div>
+    </div>  
+</div>
+
+<button id="showtab_1"  data-table-num="1" class="singlebtn z-3dp"  data-show="0">
+<i class="fa fa-bar-chart"></i>
+
+</button>
+<button id="showtab_2"  data-table-num="2" class="singlebtn z-3dp"  data-show="0">
+<i class="fa fa-bar-chart"></i>
+
+</button>
+<button id="showtab_3"  data-table-num="3" class="singlebtn z-3dp"  data-show="0">
+<i class="fa fa-bar-chart"></i>
+
+</button>
+<button id="showtab_4"  data-table-num="4" class="singlebtn z-3dp"  data-show="0">
+<i class="fa fa-bar-chart"></i>
+
+</button>
+
+<!--table1-->
+<div class="table-box table-box-1 z-3dp data-table" data-table-num="1">
+    <div class="table">
+        <div class="theader">
+            <div class="trh">
+                <div class="th text-left t-1">三大模块</div>
+                <div class="th text-left t-1">存量数据</div>
+            </div>
+            <button class="close"  data-table-num="1">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+        <div id="modelTable" class="tbody">
+            <div class="tr">
+                <div class="td t-1">基础库</div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1">专项</div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1">部门</div>
+                <div class="td t-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--table2-->
+<div class="table-box table-box-2 z-3dp data-table" data-table-num="2">
+    <div class="table">
+        <div class="theader">
+            <div class="trh">
+                <div class="th text-left t-1">数据主题</div>
+                <div class="th text-left t-1">源节点</div>
+                <div class="th text-left t-1">目标节点</div>
+                <div class="th text-left t-1">交换时间</div>
+                <div class="th text-left t-1">交换量</div>
+            </div>
+            <button class="close"  data-table-num="2">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+        <div id="dataExcTable" class="tbody">
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--table3-->
+<div class="table-box table-box-3 z-3dp data-table" data-table-num="3">
+    <div class="table">
+        <div class="theader">
+            <div class="trh">
+                <div class="th text-left t-1">前置机名称</div>
+                <div class="th text-left t-1">监测日期</div>
+                <div class="th text-left t-1">监测状态</div>
+            </div>
+            <button class="close"  data-table-num="3">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+        <div id="connectStatusTable" class="tbody">
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--table4-->
+<div class="table-box table-box-4 z-3dp data-table" data-table-num="4">
+    <div class="table">
+        <div class="theader">
+            <div class="trh">
+                <div class="th text-left t-1">数据主题</div>
+                <div class="th text-left t-1">交换日期</div>
+                <div class="th text-left t-1">部门</div>
+                <div class="th text-left t-1">交换量</div>
+            </div>
+            <button class="close" data-table-num="4">
+                <i class="fa fa-close"></i>
+            </button>
+        </div>
+        <div id="excNumTable" class="tbody">
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+            <div class="tr">
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+                <div class="td t-1"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="toolbar left z-1dp">
+    
+</div>
+<!--<div class="toolbar right z-1dp"></div>-->
+<div class="content z-1dp">
+</div>
+<div class="toolbar bottom z-1dp">
+    <span class="copyright">
+        Copy right - 2016.03.01
+    </span>
+    <div class="my-note">作者周劼,邮箱alexzj_1983@163.com</div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/d3.js"></script>
+<script src="js/config.js"></script>
+<script src="js/data.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

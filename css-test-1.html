@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        *{
+            padding: 0;
+            margin: 0;
+            font-family: "微软雅黑";
+        }
+        
+        html,body{
+            height: 100%;
+        }
+        
+        .content{
+            display: flex;
+            flex-direction: row;
+            flex-wrap:wrap;
+            background-color: #eee;
+            padding: 5px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            margin: 10px;
+        }
+
+        .item{
+            padding: 10px;
+            margin: 5px;
+            border-radius: 4px;
+            box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+        }
+        
+        .i1{
+            background-color: #fff;
+            width: 100%;
+            height: 50px;
+/*            flex: 1;*/
+        }
+        .i2{
+            background-color: #fff;
+/*            width: 30%;*/
+            flex: 1;
+        }
+        .i3{
+            background-color: #fff;
+            flex: 4;
+                
+        }
+        
+        .dot{
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: rgba(16,108,200,0.01);
+            box-shadow:0 2px 5px 0 rgba(0,0,0,.26);
+        }
+        
+        p.c{
+            height: 120px;
+            width: 120px;
+            border-radius: 50%;
+            border: solid 2px #ff9900;
+        }
+        
+/*        https://material.angularjs.org/latest/demo/autocomplete*/
+    </style>
+</head>
+<body>
+<div class="content">
+    <div class="item i1">
+        <p class="c">1</p>
+        <p>1</p>
+        <p>1</p>
+        
+    </div>
+    <div class="item i2">
+        <p>2</p>
+        <p>2</p>
+        <p>2</p>
+        <p>2</p>
+        <p>2</p>
+        <p>2</p>
+        <p>2</p>
+        <p>2</p>
+    </div>
+    <div class="item i3">
+        <div class="dot"></div>
+        <button id="btn1">btn1</button>
+    </div>
+</div>
+<script src="js/jquery.js"></script>
+<script src="js/d3.js"></script>
+<script>
+$(function(){
+    var i=1
+    $("#btn1").click(function(){
+        i++;
+        var p = $("<p>").text(i);
+        $(".item.i1").append(p);
+    })
+    
+    //alert(event.onclick)
+    
+    $("p.c").click(function(){
+        alert("1")
+    })
+    
+    $(".item.i1").delegate("p","click",function(){
+        //alert($(this).html());
+    })
+})
+</script>
+</body>
+</html>
