@@ -3,7 +3,7 @@
     var dataLinks = [];
 
     var tip = d3.select("body").append("div").attr("class","tip");
-    
+
     var zoom = d3.behavior.zoom()
     .scaleExtent([0.5, 3])
     .on("zoom", zoomed);
@@ -13,9 +13,9 @@
     .on("dragstart", dragstarted)
     .on("drag", dragged)
     .on("dragend", dragended);
-    
+
     var diagonal = d3.svg.diagonal().projection(function(d) { return [d.x, d.y]; });
-    
+
     var dataArc = d3.svg.arc()
         .startAngle(0)
         .endAngle(function(d) { return d.sa * Math.PI; });
@@ -32,11 +32,10 @@
     .attr("height",config.height)
     .style("fill", "none")
     .style("pointer-events", "all");
-    
-    
+
 
     var container = svg.append("g").attr("class", "canvas");
-    
+
     /*
       阴影标识
     */
@@ -56,7 +55,7 @@
         .attr("dy", 0)
         .attr("result", "offsetBlur");
 
-    
+
     var feMerge = filter.append("feMerge");
     feMerge.append("feMergeNode")
         .attr("in", "offsetBlur")
@@ -72,7 +71,7 @@
     .attr("markerUnits","strokeWidth")
     .attr("markerWidth","2")
     .attr("markerHeight","2")
-    .attr("viewBox","0 0 14 14") 
+    .attr("viewBox","0 0 14 14")
     .attr("refX","8")
     .attr("refY","6")
     .attr("orient","auto")
@@ -88,7 +87,7 @@
     .attr("markerUnits","strokeWidth")
     .attr("markerWidth","3")
     .attr("markerHeight","3")
-    .attr("viewBox","0 0 14 14") 
+    .attr("viewBox","0 0 14 14")
     .attr("refX","6")
     .attr("refY","6")
     .attr("orient","auto")
@@ -101,9 +100,9 @@
     var nodes = null;//装载nodes ele的map
     var linksL = null;//装载lineto links ele的数组
     var linksC = null;//装载parentto links ele的数组
-    
+
     var nameMap = {};//储存数据中的name:生成的虚拟name
-    var nameMapRe = {};//针对上面那个把name和value反过来的 
+    var nameMapRe = {};//针对上面那个把name和value反过来的
     var typeArray = [];//装载type 的数组
     var nodesDataMap = {};//装载nodes 数据的map
     var linksLineToDataMap = {};//装载lineto links 数据的map
@@ -132,7 +131,7 @@
         d3.select(this)
         .attr("transform", "translate(" + d3.event.x+","+d3.event.y+ ")")
         .attr("x",d.x = d3.event.x).attr("y", d.y = d3.event.y);
-        
+
         d3.selectAll("[source="+d.name+"]").each(function(eled,elei){
             var Ldata = d3.select(this).data()[0].target;
             var Ltype = d3.select(this).data()[0].type;
@@ -141,7 +140,7 @@
             var p1={x:d.x+sdx,y:d.y+sdx},p2={x:Ldata.x+tdx,y:Ldata.y+tdx};
             d3.select(this).attr("d",updatePtah(p1,p2,sdx,tdx,Ltype));
         });
-        
+
         d3.selectAll("[target="+d.name+"]").each(function(eled,elei){
             var Ldata = d3.select(this).data()[0].source;
             var Ltype = d3.select(this).data()[0].type;
@@ -161,12 +160,12 @@
         var name = d3.select(this).data()[0].name;
         d3.select(this).classed("nodehover",true);
         $(".canvas>*:not([data-node-id="+name+"])").css("opacity","0.1");
-        
+
         /*
         * linkst 会执行动画 从源到目标
         * linkts 会执行动画 从目标到源
         */
-        
+
         //所有source是当前节点的线加上class linkst
         d3.selectAll("[source="+d.name+"]").each(function(eled,elei){
             var type = d3.select(this).attr("type");
@@ -178,28 +177,28 @@
                 d3.select(this).classed("linkhover linkst",true);
             }
         })
-        
+
         //所有target是当前节点且是双向线的link 加上class linkts
         d3.selectAll("[target="+d.name+"]").each(function(eled,elei){
             var type = d3.select(this).attr("type");
             var sourceName = d3.select(this).data()[0].source.name;
-            
+
             d3.select("[data-node-id="+sourceName+"]").style("opacity","1");
             d3.select(this).style("opacity","1");
             if(type=="s"){d3.select(this).classed("linkhover linkst",true);}
             else if(type=="d"){d3.select(this).classed("linkhover linkts",true);}
-            
+
         })
-            
+
         for(var l=0;l<d.lineTo.length;l++){
             lineToStr += " "+d.lineTo[l].node.displayName;
             d3.select("[data-node-id="+d.lineTo[l].node.name+"]").classed("nodehover",true);
         }
-        
+
         var tipHtml = lineToStr.length>0?
             ("Name: "+d.displayName+"<br>"+"Line to:"+lineToStr+"<br>x:"+d.x+";y:"+d.y):
             ("Name: "+d.displayName+"<br>x:"+d.x+";y:"+d.y)
-        
+
         tip.classed("show",true)
         .style("left",d3.event.pageX+"px")
         .style("top",d3.event.pageY+"px").html(tipHtml);
@@ -215,7 +214,7 @@
         var name = d3.select(this).data()[0].name;
         d3.select(this).classed("nodehover",false);
         d3.selectAll(".canvas>*:not([data-node-id="+name+"])").style("opacity","1");
-        
+
         d3.selectAll("[source="+d.name+"]").classed("linkhover linkst",false);
         d3.selectAll("[target="+d.name+"]").classed("linkhover linkst linkts",false);
         for(var l=0;l<d.lineTo.length;l++){
@@ -234,16 +233,16 @@
             node.attr("data-childrenShown",d.childrenShown = false);
             hideChildren(d,node);
         }
-        
+
     }
-    
+
     function linkmouseovered(d){
         tip.classed("show",true)
         .style("left",d3.event.pageX+10+"px")
         .style("top",d3.event.pageY+10+"px").text(d.source.displayName+" to "+d.target.displayName);
-        
+
     }
-    
+
     function linkmousemoved(d){
         tip
         .style("left",d3.event.pageX+10+"px")
@@ -260,7 +259,7 @@
             initChartData();
             initChart();
         })
-        
+
         if(config.useStaticDat==true){
             initTableData();
             initTable();
@@ -277,7 +276,7 @@
             });
         }
     }
-    
+
     function pushData(){
         setInterval(function(){
             if(config.useStaticDat==true){
@@ -289,16 +288,16 @@
                         doDataAction();
                 });
             }
-            
+
         },60000)
     }
-    
+
     function doDataAction(){
         for(var r=0;r<refereData.length;r++){
             doAnimeta(refereData[r])
         }
     }
-    
+
     function doAnimeta(nameArr){
         var pointArr = [];
         nameArr.map(function(d,i){
@@ -314,16 +313,16 @@
                     r = calcRadius(nodeData);
                     point = {x:nodeData.x + r,y:nodeData.y + r};
                 }
-                
+
                 pointArr.push(point);
             }
-            
+
         });
-        
+
         var animateCircle = container.append("circle")
         .attr("class","node-data-dot")
         .attr("r",15);
-        
+
         (function t(d,i){
             if(i<(d.length-1)){
                 animateCircle
@@ -348,10 +347,10 @@
                 .duration(100)
                 .remove();
             }
-            
+
         })(pointArr,0);
     }
-    
+
     function refereTable(){
         setInterval(function(){
             if(config.useStaticDat==true){
@@ -365,42 +364,42 @@
                         initTable();
                 });
             }
-            
+
         },60000)
     }
-    
+
     function startSocket(){
-        var  wsServer = config.serviceApi.getUpdata.url; 
-        var  websocket = new WebSocket(wsServer); 
-        websocket.onopen = function (evt) { onOpen(evt) }; 
-        websocket.onclose = function (evt) { onClose(evt) }; 
-        websocket.onmessage = function (evt) { onMessage(evt) }; 
-        websocket.onerror = function (evt) { onError(evt) }; 
-    }
-    
-    function onOpen(evt) { 
-        console.log("Connected to WebSocket server."); 
-    } 
-    function onClose(evt) { 
-        console.log("Disconnected"); 
-    } 
-    function onMessage(evt) { 
-        console.log('Retrieved data from server: ' + evt.data); 
-    } 
-    function onError(evt) { 
-        console.log('Error occured: ' + evt.data); 
+        var  wsServer = config.serviceApi.getUpdata.url;
+        var  websocket = new WebSocket(wsServer);
+        websocket.onopen = function (evt) { onOpen(evt) };
+        websocket.onclose = function (evt) { onClose(evt) };
+        websocket.onmessage = function (evt) { onMessage(evt) };
+        websocket.onerror = function (evt) { onError(evt) };
     }
 
-    
-    
+    function onOpen(evt) {
+        console.log("Connected to WebSocket server.");
+    }
+    function onClose(evt) {
+        console.log("Disconnected");
+    }
+    function onMessage(evt) {
+        console.log('Retrieved data from server: ' + evt.data);
+    }
+    function onError(evt) {
+        console.log('Error occured: ' + evt.data);
+    }
+
+
+
 
     //systems funs
     function init(){
         console.log("Author:周劼 n/E-mail:alexzj_1983@163.com")
         dataInit();
-        
+
     }
-    
+
     function initChartData(){
         setNodesData();
         setLinksData();
@@ -415,7 +414,7 @@
     var partmentArr = [];//部门
     var norArr = [];//非部门节点应用等其他
     var hasChildren = [];//有子节点的节点
-    
+
     function setNodesData(){
         //push node data to a map
         for(var i=0;i<nodesData.length;i++){
@@ -423,7 +422,7 @@
             nameMapRe[nodesData[i].type + "_" + i] = nodesData[i].name;
             nodesData[i].name = nodesData[i].type + "_" + i;
             nodesDataMap[nodesData[i].name] = nodesData[i];
-            
+
             var type = nodesData[i].type;
             var hasThisType = false;
             for(var t=0;t<typeArray.length;t++){//初始化type 数据
@@ -435,22 +434,22 @@
             //获得所有type 并放入数组
             if(hasThisType==false){typeArray.push(type)}
         }
-        
-        
-        
-        
+
+
+
+
         for(var k in nodesDataMap){
-            
+
             //push children node obj to children
             nodesDataMap[k].parent = nameMap[nodesDataMap[k].parent]?nameMap[nodesDataMap[k].parent]:"";
-            
+
             var p = nodesDataMap[k].parent;
-            
+
             if(p!=""){
                 nodesDataMap[k].parent = nodesDataMap[nodesDataMap[k].parent];
                 nodesDataMap[k].parent.children.push(nodesDataMap[k]);
             }
-            
+
             //push lineto node obj to lineto replace the name string
             var lt = nodesDataMap[k].lineTo;
             if(lt.length>0&&nodesDataMap[k].deps>1){
@@ -464,13 +463,13 @@
                     if(p.lineTo.indexOf(lStr)==-1){//如果当前数组中不存在这个link数据则推入
                         p.lineTo.push(lStr);
                     }
-                    
+
                 }
                 //nodesDataMap[k].lineTo = [];
             }
-            
+
         }
-        
+
         for(var k in nodesDataMap){
             if(nodesDataMap[k].type=="center"){
                 center = nodesDataMap[k];
@@ -479,7 +478,7 @@
                 center.x = w;
                 center.y = h;
             }
-            
+
             if(nodesDataMap[k].deps==1){
                 if(nodesDataMap[k].type=="partment"){
                     partmentArr.push(nodesDataMap[k]);
@@ -490,7 +489,7 @@
                     hasChildren.push(nodesDataMap[k]);
                 }
             }
-            
+
             //对lineto数组对象化
             //push lineto node obj to lineto replace the name string
             var lt = nodesDataMap[k].lineTo;
@@ -509,13 +508,13 @@
                 }
                 nodesDataMap[k].lineTo = ltArr;
             }
-            
-            
+
+
         }
-        
-        
-        
-        
+
+
+
+
         partmentArr.map(function(d,i){
             var a,x,y;
             if(i<=5){
@@ -527,11 +526,11 @@
                 x = (config.partmentDis*1.8)*Math.cos(a) + center.x;
                 y = (config.partmentDis*1.8)*Math.sin(a) + center.y;
             }
-            
+
             d.x = d.x==0? x:d.x;
             d.y = d.y==0? y:d.y;
         });
-        
+
         norArr.map(function(d,i){
             var a = i/(norArr.length)*Math.PI*2;
             var x = config.nodeDis*Math.cos(a) + center.x;
@@ -539,8 +538,8 @@
             d.x = d.x==0? x:d.x;
             d.y = d.y==0? y:d.y;
         })
-        
-        
+
+
         //需要移动到展开时调用
         hasChildren.map(function(dp,ip){
             var cx = dp.x;
@@ -553,7 +552,7 @@
                 var y = config.childrenDis*Math.sin(a) + cy + childrenDis;
                 d.x = x;
                 d.y = y;
-                
+
                 if(d.children.length>0){
                     var cha = i/(childrenArr.length)*Math.PI*2;
                     var chx = config.childrenDis*1.8*Math.cos(a) + cx + childrenDis;
@@ -564,7 +563,7 @@
             })
         })
     }
-    
+
     function setLinksData(){
         setLinksDataLineTo();
         setLinksDataChildren();
@@ -605,26 +604,26 @@
         }
         linksChildren = links;
     }
-    
+
     var modelTableData = null;
     var dataExcTableData = null;
     var connectStatusTableData = null;
     var excNumTableData = null;
-    
+
     function initTableData(){
         modelTableData = tableData.table1;
         dataExcTableData = tableData.table2;
         connectStatusTableData = tableData.table3;
         excNumTableData = tableData.table4;
     }
-    
+
     function initTable(){
         //table 1
         $("#modelTable .tr:eq(0) .td:eq(1)").text(modelTableData.storage);
         $("#modelTable .tr:eq(1) .td:eq(1)").text(modelTableData.project);
         $("#modelTable .tr:eq(2) .td:eq(1)").text(modelTableData.partment);
-        
-        //table 2    
+
+        //table 2
         for(var i=0;i<dataExcTableData.length;i++){
             $("#dataExcTable .tr:eq("+i+") .td:eq(0)").text(dataExcTableData[i].dataTopic);
             $("#dataExcTable .tr:eq("+i+") .td:eq(1)").text(dataExcTableData[i].source);
@@ -632,31 +631,31 @@
             $("#dataExcTable .tr:eq("+i+") .td:eq(3)").text(dataExcTableData[i].date);
             $("#dataExcTable .tr:eq("+i+") .td:eq(4)").text(dataExcTableData[i].num);
         }
-        
+
         //table 3
         for(var i=0;i<connectStatusTableData.length;i++){
             $("#connectStatusTable .tr:eq("+i+") .td:eq(0)").text(connectStatusTableData[i].name);
             $("#connectStatusTable .tr:eq("+i+") .td:eq(1)").text(connectStatusTableData[i].date);
             $("#connectStatusTable .tr:eq("+i+") .td:eq(2)").text(connectStatusTableData[i].flag);
         }
-        
+
         //table 4
         for(var i=0;i<excNumTableData.length;i++){
             $("#excNumTable .tr:eq("+i+") .td:eq(0)").text(excNumTableData[i].dataTopic);
             $("#excNumTable .tr:eq("+i+") .td:eq(1)").text(excNumTableData[i].date);
             $("#excNumTable .tr:eq("+i+") .td:eq(2)").text(excNumTableData[i].dep);
             $("#excNumTable .tr:eq("+i+") .td:eq(3)").text(excNumTableData[i].num);
-            
+
         }
     }
-    
-    
+
+
     function calcRadius(d){
         var childrenLength = d.children.length;
         var deps = d.deps;
         return 40+(1-deps)*10+childrenLength*0.5;
     }
-    
+
     var lineXFun = d3.scale.linear().domain([0,1]);
     var lineYFun = d3.scale.linear().domain([0,1]);
     var abs = Math.abs;
@@ -669,36 +668,36 @@
         var y1 = p1.y;
         var x2 = p2.x;
         var y2 = p2.y;
-        
+
         lineXFun.range([x1,x2]);
         lineYFun.range([y1,y2]);
         var xm = lineXFun(0.5);
         var ym = lineYFun(0.5);
-        
+
         var xnum = abs(x1-x2);
         var ynum = abs(y1-y2);
         var d = sqrt(pow(xnum,2)+pow(ynum,2));//三角函数计算中点
-        
+
         var dx2m = type=="d"?4:8
         var dx1 = d1R+2+4;//线尾部 半径加上 边框 加空距离
         var dx2 = d2R+2+dx2m;//线尾部 半径加上 边框 加空距离，如果是双向为4 单向型为8
-        
+
         var xd1 = lineXFun(dx1/d);
         var yd1 = lineYFun(dx1/d);
-        
+
         var xd2 = lineXFun((d-dx2)/d);
         var yd2 = lineYFun((d-dx2)/d);
-        
+
         var lineFun = d3.svg.line()
         .x(function(d) { return d.x; })
         .y(function(d) { return d.y; });
-                
+
         ld = [
             {x:xd1,y:yd1},
             {x:xm,y:ym},
             {x:xd2,y:yd2}
         ]
-        
+
         return lineFun(ld);
     }
 
@@ -739,7 +738,7 @@
         .on("mouseout",nodemouseouted)
         .on("dblclick.dispatch",dispatch.nodeDblclick)
         .call(drag);
-        
+
         var ele = nodes.append("circle")
         .attr("class",function(d){
            return "node-ele "+"deps-"+d.deps+" "+d.type;
@@ -757,18 +756,18 @@
             return calcRadius(d);
         })
         .style("filter", "url(#drop-shadow)");
-        
+
         var arc = nodes
         .append("path")
         .attr("class",function(d){
             var depsColor = "deps-"+d.deps;
             var nodeType = d.type;
-            return "node-arc "+depsColor+" "+nodeType 
+            return "node-arc "+depsColor+" "+nodeType
         })
         .attr("d", function(d){
             var v = {sa:d.sa};
             var depsX = calcRadius(d);
-            dataArc.innerRadius(10)  
+            dataArc.innerRadius(10)
             .outerRadius(depsX);
             return dataArc(v);
         })
@@ -778,12 +777,12 @@
         })
         .attr("data-arc-id",function(d){return d.name;})
         .attr("id",function(d){return "data-arc-"+d.name;});
-        
+
         var text = nodes.append("text")
         .attr("class",function(d){
             var depsColor = "deps-"+d.deps;
             var nodeType = d.type;
-            return "node-text "+depsColor+" "+nodeType 
+            return "node-text "+depsColor+" "+nodeType
         })
         .text(function(d){
             return d.displayName;
@@ -809,7 +808,7 @@
         .enter()
         .insert("path",".node")
         .attr("class",function(d){
-            return (d.source.deps>1||d.target.deps>1)?"link linkL hideLink":"link linkL";   
+            return (d.source.deps>1||d.target.deps>1)?"link linkL hideLink":"link linkL";
         })
         .attr("source",function(d){
             return d.source.name;
@@ -898,18 +897,18 @@
         })
         .on("mouseover",linkmouseovered).on("mousemove",linkmousemoved).on("mouseout",linkmouseouted);
     }
-    
+
     function showChildren(d,node){
         node.on("dblclick.dispatch",null);
         var ldata = [];
         var cx = d.x;
         var cy = d.y;
-        
+
         d3.selectAll("[source="+d.name+"][type=c]").each(function(eleData,i){
             var link = d3.select(this);
             var type = link.attr("type");
             var targetStr = link.attr("target");
-            
+
             var childNum = 6//用于控制每圈的数量;
             var nodeDis = config.childrenDis;//子节点距离父节点的距离
             if(i<=5){
@@ -922,27 +921,27 @@
                 childNum=24;
                 nodeDis = config.childrenDis*2.6;
             }
-            
-            
-            
+
+
+
             var currChild = d3.select("[data-node-id="+targetStr+"]");
             var currChildData = currChild.data()[0];
             var childrenDis = calcRadius(d);
             var childR = calcRadius(currChildData)
             var a = i/childNum*Math.PI*2;
-            
+
             var x = nodeDis*Math.cos(a) + cx + childrenDis - childR;
             var y = nodeDis*Math.sin(a) + cy + childrenDis - childR;
-            
-            
+
+
             var chx = config.childrenDis*1.8*Math.cos(a) + cx + childrenDis;
             var chy = config.childrenDis*1.8*Math.sin(a) + cy + childrenDis;
-            
+
             if(currChildData.deps<=2){
                 currChildData.x = x;
                 currChildData.y = y;
                 currChild.attr("transform","translate("+x+","+y+")");
-                
+
                 link.attr("d",function(){
                     var dx1 = calcRadius(d);
                     var dx2 = calcRadius(currChildData);
@@ -954,8 +953,8 @@
                     return updatePtah(p1,p2,dx1,dx2,type);
                 });
             }
-            
-            
+
+
             if(currChildData.children.length>0){
                 currChildData.children[0].x = chx;
                 currChildData.children[0].y = chy;
@@ -972,16 +971,16 @@
                     p2.y = grandsonData.y+dx2;
                     return updatePtah(p1,p2,dx1,dx2,"c");
                 });
-                
+
                 grandson.attr("transform","translate("+chx+","+chy+")");
-                
-                
+
+
             }
-            
+
             currChild.classed("hideNode",false);
-            
-            
-            
+
+
+
             link.classed("hideLink",false);
         });
         d3.selectAll("[source="+d.name+"][type=s]").each(function(eleData,i){
@@ -1003,7 +1002,7 @@
             drawParentLinks(ldata,d.name);
 
         });
-        
+
         d3.selectAll("[source="+d.name+"][type=chs]").each(function(eleData,i){
             var link = d3.select(this);
             link.classed("hideLink",true);
@@ -1020,13 +1019,13 @@
                         linkdata.type = "p";
                         ldata.push(linkdata);
                     })
-                    
+
                 }
             }
             drawParentLinks(ldata,d.name);
 
         });
-        
+
         node.on("dblclick.dispatch",dispatch.nodeDblclick);
     }
 
@@ -1044,7 +1043,7 @@
                 dispatch.nodeDblclick.apply(currChild,currChild.data());
             };
         });
-        
+
         d3.selectAll("[source="+d.name+"][type=s],[source="+d.name+"][type=chs]").each(function(eleData,i){
             var link = d3.select(this);
             link.classed("hideLink",false);
@@ -1056,7 +1055,7 @@
                 d3.selectAll("[source="+child.name+"][type=p]").remove();
             }
         })
-        
+
         node.on("dblclick.dispatch",dispatch.nodeDblclick);
     }
 
@@ -1070,14 +1069,14 @@
                     "y":v.y
                 }
             }
-            
+
         })
         console.log(JSON.stringify(nodesStringData));
-        
+
         var toScale = 1;
         zoom.scale(toScale);
         zoom.translate([0,0]);
-        
+
         var tmstr = container.attr("transform");
         if(tmstr==null)return;
         var trstr = tmstr.substring(0,tmstr.indexOf(")")+1);
@@ -1085,11 +1084,11 @@
         container
         .transition()
         .attr("transform", trstr+"scale("+toScale+")");
-        
-        
+
+
     })
-    
-    
+
+
     var isDone = false;
     /*d3.select("#showtab_1").on("click",function(){
         var ele = d3.select("#data-arc-dataBase_13");
@@ -1099,72 +1098,72 @@
             arcDataLoaded(ele);
         }
     })*/
-    
+
     function arcDataLoaded(ele){
         var eled = ele.data()[0];
         var depsX = calcRadius(eled);
-        
-        
+
+
         ele.transition()
         .duration(2000)
         .attrTween("d", function(d){
             var i = d3.interpolate({sa:d.sa}, {sa:Math.PI*2});
             return function(t) {
                 dataArc
-                .innerRadius(20)  
+                .innerRadius(20)
                 .outerRadius(depsX);
                 return dataArc(i(t));
             };
         });
-        
+
         d3.select("path[source=database-1][target=partment-a]").classed("linkD",true);
-        
+
         isDone = true;
     }
 
     function arcDataReset(ele){
         var eled = ele.data()[0];
         var depsX = calcRadius(eled);
-        
-        
+
+
         ele.transition()
         .duration(2000)
         .attrTween("d", function(d){
             var i = d3.interpolate({sa:Math.PI*2}, {sa:d.sa});
             return function(t) {
                 dataArc
-                .innerRadius(20)  
+                .innerRadius(20)
                 .outerRadius(depsX);
                 return dataArc(i(t));
             };
         });
-        
+
         d3.select("path[source=database-1][target=partment-a]").classed("linkD",false);
-        
+
         isDone = false;
     }
-    
-    
-    
+
+
+
     $("button[data-show]").on("click",function(e){
         $(this).attr("data-show","1");
         var data_num = $(this).attr("data-table-num");
         $(".data-table[data-table-num="+data_num+"]").fadeIn(50);
     });
-    
+
     $("button.close[data-table-num]").on("click",function(e){
         var data_num = $(this).attr("data-table-num");
         $("button[show-data][data-table-num="+data_num+"]").attr("data-show","0");
-        $(".data-table[data-table-num="+data_num+"]").fadeOut(50);     
+        $(".data-table[data-table-num="+data_num+"]").fadeOut(50);
     });
-    
-    
+
+
     function showAinBG(btn,w,h,pos,showTabCb){
         var btnWidth = btn.width();
         var btnHeight = btn.height();
         var btnLeft = btn.offset().left;
         var btnTop = btn.offset().top;
-        
+
         var toleft = "";
         var totop = "";
         switch(pos){
@@ -1185,7 +1184,7 @@
             totop = $("body").height() - h - 50 + "px";
             break;
         }
-        
+
         $(".ain-bg").css({
             "top":btnTop+"px",
             "left":btnLeft+"px",
@@ -1201,21 +1200,21 @@
             $(this).fadeOut(300);
             showTabCb(totop,toleft);
         });
-        
+
     }
-    
+
     function testnodemouseovered(){
         var lineToStr = "";
         var node = d3.select("[data-node-id=partment_0]");
         var name = node.data()[0].name;
         node.classed("nodehover",true);
         d3.selectAll(".canvas>*:not([data-node-id="+name+"])").style("opacity","0.1");
-        
+
         /*
         * linkst 会执行动画 从源到目标
         * linkts 会执行动画 从目标到源
         */
-        
+
         //所有source是当前节点的线加上class linkst
         d3.selectAll("[source="+d.name+"]").each(function(eled,elei){
             var type = d3.select(this).attr("type");
@@ -1227,26 +1226,24 @@
                 d3.select(this).classed("linkhover linkst",true);
             }
         })
-        
+
         //所有target是当前节点且是双向线的link 加上class linkts
         d3.selectAll("[target="+d.name+"]").each(function(eled,elei){
             var type = d3.select(this).attr("type");
             var sourceName = d3.select(this).data()[0].source.name;
-            
+
             d3.select("[data-node-id="+sourceName+"]").style("opacity","1");
             d3.select(this).style("opacity","1");
             if(type=="s"){d3.select(this).classed("linkhover linkst",true);}
             else if(type=="d"){d3.select(this).classed("linkhover linkts",true);}
-            
+
         })
     }
-    
+
     $("#test").click(function(){
         testnodemouseovered();
     })
-    
-    
+
+
     init();
 })();
-    
-    

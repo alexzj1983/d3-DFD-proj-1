@@ -8,114 +8,23 @@
     </style>
 </head>
 <body>
-<div class="a">
-    <svg width="1000" height="700" id="svg_1"></svg>
-</div>
+<!--<div>1234</div>-->
 <button id="btn">btn</button>
-<button id="btn1">btn1</button>
-<div class="d3" style="display:none;">1234</div>
 <script src="js/jquery.js"></script>
 <script src="js/d3.js"></script>
 <script>
-;(function(){    
-    var o = {a:"a"};
-    Object.defineProperty(o,"b",{
-        set:function(sb){
-            console.log(this.a);
-            
-            gb = sb;
-        },
-        get:function(){
-            console.log("do get");
-            return gb;
-        }
-    })
-    
-    function a(a1){
-        return function b(a2){
-            alert(a1+a2);
-        };
+;(function(){
+    function t(){
+        alert(1);
     }
-    
-    var oo = {
-        a:1,
-        b:2,
-        c:3
-    }
-    
-    var data = [
-        {x:110,y:100},
-        {x:155,y:200},
-        {x:310,y:100},
-        {x:420,y:550},
-        {x:700,y:301}
-    ]
-    var svg = d3.select("#svg_1");
-    svg.selectAll("circle")
-        .data(data)
-        .enter()
-        .append("circle")
-        .attr("r",30)
-        .attr("fill","rgba(100,100,100,0.8)")
-        .attr("cx",function(d){
-            return d.x;
-        })
-        .attr("cy",function(d){
-            return d.y;
-        });
-    
-    var currNodeData = null;
-    $(document).bind("click",function(){
-        $(".d3").hide();
-    })
-    
-    $("#btn").bind("mouseover",function(){
-        $(".d3").show();
-    })
-    
     $("#btn").bind("click",function(event){
-        event.stopPropagation();
-        console.log(2);
+//        setTimeout(t,1000);
+        if(!$("div").length>0){
+            alert(1);
+        }
     });
     
-    $("#btn1").click(function(){
-        var animEle = svg.append("circle")
-        .attr("r",10)
-        .attr("fill","rgba(255,0,0,0.8)");
-        
-        (function t(d,i){
-            if(i<(d.length-1)){
-                animEle
-                .attr("cx",function(){
-                    return d[i].x;
-                })
-                .attr("cy",function(){
-                    return d[i].y;
-                })
-                .transition()
-                .duration(1000)
-                .attr("cx",function(){
-                    return d[i+1].x;
-                })
-                .attr("cy",function(){
-                    return d[i+1].y;
-                })
-                .each("end",function(){
-                    i++;
-                    t(d,i);
-                });
-            } else {
-                animEle
-                .transition()
-                .duration(500)
-                .style("opacity",0)
-                .remove();
-            }
-            
-        })(data,0)
-        
-        
-    })
+    
 })();
 
 </script>

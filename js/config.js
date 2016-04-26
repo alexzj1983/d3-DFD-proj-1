@@ -5,7 +5,7 @@ var config = {
     serviceUrl:"http://121.12.250.200:8086/framework_web/portal/index/",
     serviceApi:{
         getAllData:{
-            url:"js/nodeData.js"
+            url:"js/nodeDataTest.js"
         },
         setAllData:{
             url:""
