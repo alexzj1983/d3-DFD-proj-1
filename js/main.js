@@ -5,7 +5,7 @@
     var tip = d3.select("body").append("div").attr("class","tip");
 
     var zoom = d3.behavior.zoom()
-    .scaleExtent([0.5, 3])
+    .scaleExtent([0.1, 3])
     .on("zoom", zoomed);
 
     var drag = d3.behavior.drag()
@@ -32,6 +32,7 @@
     .attr("height",config.height)
     .style("fill", "none")
     .style("pointer-events", "all");
+
 
 
     var container = svg.append("g").attr("class", "canvas");
@@ -112,6 +113,22 @@
 
     var eles = [];
     var texts = [];
+
+    /*
+    link类型
+    s单向线
+    chs由子节点形成的单向线
+    d双向线
+    chd由子节点形成的双向线
+    p父子节点之间的线
+    */
+    var linkType = {
+        s:"s",
+        chs:"chs",
+        d:"d",
+        chd:"chd",
+        p:"p"
+    };
 
     //为双击事件定义一个可自行触发的事件监听
     var dispatch = d3.dispatch('nodeDblclick');
@@ -254,11 +271,19 @@
     }
 
     function dataInit(){
-        $.getScript(config.serviceApi.getAllData.url,function(){
-            nodesData = nodesStaticData;
-            initChartData();
-            initChart();
-        })
+        // $.getScript(config.serviceApi.getAllData.url,function(){
+        //     nodesData = nodesStaticData;
+        //     initChartData();
+        //     initChart();
+        // });
+
+        // setInterval(function(){
+        //     refereNode();
+        // },1000*60*60*24);
+
+        nodesData = nodesStaticData;
+        initChartData();
+        initChart();
 
         if(config.useStaticDat==true){
             initTableData();
@@ -266,15 +291,40 @@
             pushData();
             refereTable()
         } else {
-            pushData();
-            d3.json(config.serviceUrl+config.serviceApi.getTableData.url, function(error, json) {
-                if (error) return console.warn(error);
-                    tableData = json;
-                    initTableData();
-                    initTable();
-                    refereTable()
-            });
+            // pushData();
+            // d3.json(config.serviceUrl+config.serviceApi.getTableData.url, function(error, json) {
+            //     if (error) return console.warn(error);
+            //         tableData = json;
+            //         initTableData();
+            //         initTable();
+            //         refereTable()
+            // });
         }
+    }
+
+    function refereNode(){
+        types = null;//装载types ele的map
+        nodes = null;//装载nodes ele的map
+        linksL = null;//装载lineto links ele的数组
+        linksC = null;//装载parentto links ele的数组
+
+        nameMap = {};//储存数据中的name:生成的虚拟name
+        nameMapRe = {};//针对上面那个把name和value反过来的
+        typeArray = [];//装载type 的数组
+        nodesDataMap = {};//装载nodes 数据的map
+        linksLineToDataMap = {};//装载lineto links 数据的map
+        linksChildrenDataMap = {};//装载parentto links 数据的map
+        linksLineTo = [];//装载lineto links 数据的map
+        linksChildren = [];//装载parentto links 数据的map
+
+        container.remove();
+        container = svg.append("g").attr("class", "canvas");
+
+        $.getScript(config.serviceApi.getAllData.url,function(){
+            nodesData = nodesStaticData;
+            initChartData();
+            initChart();
+        });
     }
 
     function pushData(){
@@ -794,6 +844,15 @@
             return calcRadius(d)+5;
         })
         .style("filter", "url(#drop-shadow)");
+
+        // var linkImg = nodes.append("image")
+        // .attr("xlink:href","images/jumpto.png")
+        // .attr("x",function(d){
+        //   return calcRadius(d)-8;
+        // })
+        // .attr("y",15)
+        // .attr("height","16")
+        // .attr("width","16");
     }
 
     function drawLinks(){
@@ -830,10 +889,10 @@
             return updatePtah(p1,p2,dx1,dx2,d.type);
         })
         .attr("marker-mid",function(d){
-            return (d.type=="s"||d.type=="chs")?"":"url(#arrow-two-way)"
+            return (d.type==linkType.s||d.type==linkType.chs)?"":"url(#arrow-two-way)"
         })
         .attr("marker-end",function(d){
-            return (d.type=="s"||d.type=="chs")?"url(#arrow-one-way)":""
+            return (d.type==linkType.s||d.type==linkType.chs)?"url(#arrow-one-way)":""
         })
         .on("mouseover",linkmouseovered).on("mousemove",linkmousemoved).on("mouseout",linkmouseouted);
     }
@@ -903,7 +962,7 @@
         var ldata = [];
         var cx = d.x;
         var cy = d.y;
-
+console.log("show");
         d3.selectAll("[source="+d.name+"][type=c]").each(function(eleData,i){
             var link = d3.select(this);
             var type = link.attr("type");
@@ -984,6 +1043,7 @@
             link.classed("hideLink",false);
         });
         d3.selectAll("[source="+d.name+"][type=s]").each(function(eleData,i){
+
             var link = d3.select(this);
             link.classed("hideLink",true);
             var targetStr = link.attr("target");
@@ -999,9 +1059,11 @@
                     ldata.push(linkdata);
                 }
             }
+            console.log(ldata);
             drawParentLinks(ldata,d.name);
 
         });
+
 
         d3.selectAll("[source="+d.name+"][type=chs]").each(function(eleData,i){
             var link = d3.select(this);
@@ -1014,14 +1076,18 @@
                 var linkdata = {};
                 if(child.deps==2&&child.lineTo.length>0){
                     child.lineTo.map(function(dc,ic){
-                        linkdata.source = nodesDataMap[child.name];
-                        linkdata.target = nodesDataMap[dc.node.name];
-                        linkdata.type = "p";
-                        ldata.push(linkdata);
+                        if(dc.node.name==targetStr){
+                            linkdata.source = nodesDataMap[child.name];
+                            linkdata.target = nodesDataMap[dc.node.name];
+                            linkdata.type = "p";
+                            ldata.push(linkdata);
+                        }
+
                     })
 
                 }
             }
+            console.log(ldata);
             drawParentLinks(ldata,d.name);
 
         });
@@ -1241,7 +1307,8 @@
     }
 
     $("#test").click(function(){
-        testnodemouseovered();
+        //testnodemouseovered();
+        //refereNode();
     })
 
 
