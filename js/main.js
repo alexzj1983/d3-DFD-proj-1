@@ -343,62 +343,77 @@
     }
 
     function doDataAction(){
+        console.log('do action');
         for(var r=0;r<refereData.length;r++){
             doAnimeta(refereData[r])
         }
     }
+
+    
 
     function doAnimeta(nameArr){
         var pointArr = [];
         nameArr.map(function(d,i){
             if(d.length>0&&d!=""){
                 var nodeData = nodesDataMap[nameMap[d]];
-                var r = 0;
-                var point = {};
-                if(nodeData.deps>1&&d3.select("[data-node-id="+nameMap[d]+"]").classed("hideNode")==true){
-                    var parentData = nodeData.parent;
-                    r = calcRadius(parentData);
-                    point = {x:parentData.x + r,y:parentData.y + r};
-                } else {
-                    r = calcRadius(nodeData);
-                    point = {x:nodeData.x + r,y:nodeData.y + r};
+
+                if(nameArr[i+1]){
+                    // d3.selectAll('[source='+nameMap[d]+'][target='+nameMap[nameArr[i+1]]+']').classed('linkData',true);
+                    (function(el){
+                        el.classed('linkData',true);
+                        setTimeout(function(){
+                            el.classed('linkData',false);
+                        },5000)
+                    })(d3.selectAll('[source='+nameMap[d]+'][target='+nameMap[nameArr[i+1]]+']'))
                 }
 
-                pointArr.push(point);
+
+                // var r = 0;
+                // var point = {};
+                // if(nodeData.deps>1&&d3.select("[data-node-id="+nameMap[d]+"]").classed("hideNode")==true){
+                //     var parentData = nodeData.parent;
+                //     r = calcRadius(parentData);
+                //     point = {x:parentData.x + r,y:parentData.y + r};
+                // } else {
+                //     r = calcRadius(nodeData);
+                //     point = {x:nodeData.x + r,y:nodeData.y + r};
+                // }
+
+                // pointArr.push(point);
             }
 
         });
 
-        var animateCircle = container.append("circle")
-        .attr("class","node-data-dot")
-        .attr("r",15);
+        // var animateCircle = container.append("circle")
+        // .attr("class","node-data-dot")
+        // .attr("r",15);
 
-        (function t(d,i){
-            if(i<(d.length-1)){
-                animateCircle
-                .attr("cx",d[i].x)
-                .attr("cy",d[i].y)
-                .transition()
-                .ease("linear")
-                .duration(2000)
-                .attr("cx",d[i+1].x)
-                .attr("cy",d[i+1].y)
-                .each("end",function(){
-                    i++;
-                    t(d,i);
-                });
-            } else {
-                animateCircle
-                .transition()
-                .duration(800)
-                .style("r",30)
-                .style("opacity",0)
-                .transition()
-                .duration(100)
-                .remove();
-            }
+        // (function t(d,i){
+        //     if(i<(d.length-1)){
+        //         animateCircle
+        //         .attr("cx",d[i].x)
+        //         .attr("cy",d[i].y)
+        //         .transition()
+        //         .ease("linear")
+        //         .duration(2000)
+        //         .attr("cx",d[i+1].x)
+        //         .attr("cy",d[i+1].y)
+        //         .each("end",function(){
+        //             i++;
+        //             t(d,i);
+        //         });
+        //     } else {
+        //         animateCircle
+        //         .transition()
+        //         .duration(800)
+        //         .style("r",30)
+        //         .style("opacity",0)
+        //         .transition()
+        //         .duration(100)
+        //         .remove();
+        //     }
 
-        })(pointArr,0);
+        // })(pointArr,0);
     }
 
     function refereTable(){

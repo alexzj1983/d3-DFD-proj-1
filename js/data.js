@@ -1,7 +1,8 @@
 var refereData = [
-/*    ["database-2","partment-a",""],
+    ["database-2","partment-a",""]
+    ,
     ["database-4","partment-e","partment-c","partment-b"],
-    ["data-3","app-2",""]*/
+    ["data-3","app-2",""]
 ]
 
 var tableData = {

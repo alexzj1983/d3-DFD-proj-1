@@ -187,6 +187,15 @@
     -webkit-animation:linkts 20s linear 0s infinite;
 }
 
+/*has data action*/
+.link.linkL.linkData{
+    stroke-dasharray:10px,15px;
+    stroke-linecap:round;
+    animation:linkst 20s linear 0s infinite;
+    -webkit-animation:linkst 20s linear 0s infinite;
+    stroke: rgba(255,0,0,0.7);
+}
+
 /*link children*/
 .link.linkC{
     stroke: rgba(200,200,200,1);
