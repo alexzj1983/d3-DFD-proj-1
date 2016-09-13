@@ -9,7 +9,7 @@ var nodesStaticData = [
             lineTo:[],
             type:"center",
             deps:0,
-            sa:0,
+            sa:1,
             dis:true,
             x:0,
             y:0
